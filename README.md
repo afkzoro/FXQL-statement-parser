@@ -64,7 +64,7 @@ yarn start:prod
 Access Swagger documentation at: `http://localhost:3000/api-docs`
 
 ### FXQL Statement Endpoint
-- **URL:** `/fxql-statements`
+- **URL:** `/`
 - **Method:** `POST`
 - **Content-Type:** `application/json`
 
