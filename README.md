@@ -1,73 +1,123 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# FXQL Parser - Foreign Exchange Query Language Microservice
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 📌 Overview
+FXQL Parser is a NestJS-based microservice for parsing and storing foreign exchange rate information using a custom query language.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Features
+- Parse complex FXQL statements
+- Validate currency pairs and exchange rates
+- Store exchange rate information in PostgreSQL
+- Docker and Docker Compose support
+- Swagger API documentation
 
-## Description
+## 🛠 Local Development Setup
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Prerequisites
+- Node.js (18.x)
+- Yarn
+- Docker (optional)
 
-## Installation
-
+### Installation
 ```bash
-$ yarn install
+# Clone the repository
+git clone https://github.com/afkzoro/FXQL-statement-parser.git
+cd FXQL-statement-parser
+
+# Install dependencies
+yarn install
+
+# Copy environment template
+cp .env.example .env
 ```
 
-## Running the app
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+### Environment Variables
+Create a `.env` file with the following configuration:
+```
+DB_HOST=
+DB_PORT=5432
+DB_USERNAME=
+DB_PASSWORD=
+DB_NAME=
 ```
 
-## Test
+### Running the Application
 
+#### Development Mode
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+# Start development server
+yarn start:dev
 ```
 
-## Support
+#### Production Mode
+```bash
+# Build the application
+yarn build
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# Start production server
+yarn start:prod
+```
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 📖 API Documentation
 
-## License
+### Swagger UI
+Access Swagger documentation at: `http://localhost:3000/api-docs`
 
-Nest is [MIT licensed](LICENSE).
+### FXQL Statement Endpoint
+- **URL:** `/fxql-statements`
+- **Method:** `POST`
+- **Content-Type:** `application/json`
+
+#### Request Body Example
+```json
+{
+  "FXQL": "USD-GBP { BUY 100 SELL 200 CAP 93800 }"
+}
+```
+
+#### Successful Response
+```json
+{
+  "message": "Rates Parsed Successfully.",
+  "code": "FXQL-200",
+  "data": [
+    {
+      "EntryId": 192,
+      "SourceCurrency": "USD",
+      "DestinationCurrency": "GBP",
+      "SellPrice": 200,
+      "BuyPrice": 100,
+      "CapAmount": 93800
+    }
+  ]
+}
+```
+
+## 🔍 Design Decisions
+- Used NestJS for robust TypeScript backend
+- PostgreSQL for persistent storage
+- Docker for containerization
+- Comprehensive input validation
+- Swagger for API documentation
+
+## 🧪 Testing
+```bash
+# Run unit tests
+yarn test
+
+# Run end-to-end tests
+yarn test:e2e
+```
+
+## 📋 FXQL Statement Rules
+- Maximum 1000 currency pairs per request
+- Currency codes must be 3 uppercase letters
+- Numeric validations for buy/sell rates
+- Integer validation for transaction cap
+
+## 🤝 Contributing
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
