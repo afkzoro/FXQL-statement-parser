@@ -1,7 +1,7 @@
-# FXQL Parser - Foreign Exchange Query Language Microservice
+# FXQL Parser - Foreign Exchange Query Language Parser
 
 ## 📌 Overview
-FXQL Parser is a NestJS-based microservice for parsing and storing foreign exchange rate information using a custom query language.
+FXQL Parser is a NestJS-based service for parsing and storing foreign exchange rate information using a custom query language.
 
 ## 🚀 Features
 - Parse complex FXQL statements
