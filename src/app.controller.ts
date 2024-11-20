@@ -3,7 +3,7 @@ import { FXQLParserService } from './app.service';
 import { ExchangeRateRepository } from './app.repository';
 import { FXQLRequest, FXQLResponse } from './typings/custom.interface';
 
-@Controller('fxql')
+@Controller()
 export class FXQLController {
   constructor(
     private readonly fxqlParserService: FXQLParserService,
